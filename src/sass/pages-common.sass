@@ -1,0 +1,48 @@
+.v-list-item .v-list-item__title, .v-list-item .v-list-item__subtitle
+  text-transform: uppercase
+  letter-spacing: .1em
+
+.u-bg-color-main
+  background-color: $color-map-background-darker
+
+.u-bg-color-warn
+  background-color: lighten($color-purpley-red, 0%)
+
+html, html > body, div.v-application.theme--dark
+  @extend .u-bg-color-main
+
+.container
+  max-width: 960px !important
+
+h2,h3,h4,h5,h6
+  color: lighten($color-purpley, 20%)
+
+.v-input .v-label
+  font-size: smaller
+  text-transform: uppercase
+  letter-spacing: 1px
+
+.theme--dark.v-app-bar.v-toolbar.v-sheet
+  background-color: $color-panel-background
+  .v-toolbar__content
+    background-color: $color-panel-background
+.theme--dark
+  &.v-select-list.v-list
+    background-color: darken($color-map-background-darker, 7%)
+    // background-color: hotpink
+.theme--dark.v-sheet,
+.v-navigation-drawer.theme--dark
+  $background-color: $color-map-background-darker
+  .v-navigation-drawer__content
+    background-color: $background-color
+  .v-sheet
+    background-color: $background-color
+    color: $color-white
+  .v-btn
+    color: $color-white
+.theme--dark.v-navigation-drawer:not(.v-navigation-drawer--floating) .v-navigation-drawer__border
+  background-color: rgba(0,0,0,.1) !important
+
+.theme--dark.v-list-item--active:hover::before,
+.theme--dark.v-list-item--active::before
+  opacity: 0.02
