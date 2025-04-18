@@ -7,32 +7,23 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Body: typeof import('./src/components/map/locations/Body.vue')['default']
-    CaptureEscape: typeof import('./src/components/map/locations/CaptureEscape.vue')['default']
-    DeltaVMap: typeof import('./src/components/node-map/NodeMap.vue')['default']
     Edge: typeof import('./src/components/node-map/Edge.vue')['default']
     EdgeForRound: typeof import('./src/components/node-map/EdgeForRound.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IconBorder: typeof import('./src/components/node-map/nodes/IconBorder.vue')['default']
     ImageNode: typeof import('./src/components/node-map/nodes/ImageNode.vue')['default']
-    Location: typeof import('./src/components/map/Location.vue')['default']
     LocationLabel: typeof import('./src/components/node-map/nodes/LocationLabel.vue')['default']
-    LowOrbit: typeof import('./src/components/map/locations/LowOrbit.vue')['default']
     MapSnack: typeof import('./src/components/node-map/MapSnack.vue')['default']
     Node: typeof import('./src/components/node-map/Node.vue')['default']
     NodeLabel: typeof import('./src/components/node-map/nodes/NodeLabel.vue')['default']
     NodeMap: typeof import('./src/components/node-map/NodeMap.vue')['default']
     NodeModal: typeof import('./src/components/node-map/NodeModal.vue')['default']
-    NRHO: typeof import('./src/components/map/locations/NRHO.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingsDrawer: typeof import('./src/components/node-map/SettingsDrawer.vue')['default']
     SiteTitle: typeof import('./src/components/SiteTitle.vue')['default']
-    Star: typeof import('./src/components/map/locations/Star.vue')['default']
-    StationaryOrbit: typeof import('./src/components/map/locations/StationaryOrbit.vue')['default']
     SvgNode: typeof import('./src/components/node-map/nodes/SvgNode.vue')['default']
     TextNode: typeof import('./src/components/node-map/nodes/TextNode.vue')['default']
-    TransferOrbit: typeof import('./src/components/map/locations/TransferOrbit.vue')['default']
     UserSettings: typeof import('./src/components/node-map/UserSettings.vue')['default']
   }
 }
