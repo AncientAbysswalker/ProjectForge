@@ -145,6 +145,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 1,
       y: 10,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.Sticky1]: {
     label: "Sticky 1",
@@ -153,6 +154,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 2,
       y: 10,
     },
+    autoIconUrl: "sticky.png",
   },
   [validNodes.Sticky2]: {
     label: "Sticky 2",
@@ -161,14 +163,16 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 3,
       y: 10,
     },
+    autoIconUrl: "sticky.png",
   },
   [validNodes.Sticky3]: {
     label: "Sticky 3",
-    nodeType: "orbit-l1",
+    nodeType: "image",
     position: {
       x: 4,
       y: 10,
     },
+    autoIconUrl: "sticky.png",
   },
   [validNodes.Sticky4]: {
     label: "Sticky 4",
@@ -177,6 +181,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 5,
       y: 10,
     },
+    autoIconUrl: "sticky.png",
   },
   [validNodes.Sticky5]: {
     label: "Sticky 5",
@@ -185,6 +190,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 6,
       y: 10,
     },
+    autoIconUrl: "sticky.png",
   },
   [validNodes.FakeBulb]: {
     label: "Fake Bulb",
@@ -193,6 +199,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 7,
       y: 10,
     },
+    autoIconUrl: "bulb.png",
   },
   [validNodes.FridgeKey]: {
     label: "Fridge Key",
@@ -201,6 +208,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 8,
       y: 10,
     },
+    autoIconUrl: "key.png",
   },
   [validNodes.FridgeChest]: {
     label: "Fridge Chest",
@@ -209,6 +217,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 8,
       y: 11,
     },
+    autoIconUrl: "chest.png",
   },
   [validNodes.Page6]: {
     label: "Page 6",
@@ -217,6 +226,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 9,
       y: 11,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.DPadWitness]: {
     label: "DPad - Witness",
@@ -225,6 +235,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 10,
       y: 11,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.TheWitness]: {
     label: "The Witness",
@@ -233,6 +244,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 11,
     },
+    autoIconUrl: "witness.png",
   },
   [validNodes.LocationFakeRock]: {
     label: "Location - Fake Rock",
@@ -241,6 +253,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 10,
     },
+    autoIconUrl: "image.png",
   },
   [validNodes.FakeRock]: {
     label: "Fake Rock",
@@ -249,6 +262,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 9,
     },
+    autoIconUrl: "rock.png",
   },
   [validNodes.BrokenUSB]: {
     label: "Broken USB",
@@ -257,6 +271,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 10,
       y: 9,
     },
+    autoIconUrl: "usb_broken.png",
   },
   [validNodes.MazeUSB]: {
     label: "Maze USB",
@@ -265,6 +280,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 10,
       y: 8,
     },
+    autoIconUrl: "usb.png",
   },
   [validNodes.TowelKey]: {
     label: "Towel Key",
@@ -273,6 +289,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 8,
     },
+    autoIconUrl: "key.png",
   },
   [validNodes.TowelChest]: {
     label: "Towel Chest",
@@ -281,6 +298,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 7,
     },
+    autoIconUrl: "chest.png",
   },
   [validNodes.SDCard]: {
     label: "SD Card",
@@ -289,6 +307,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 7,
       y: 6,
     },
+    autoIconUrl: "sd.png",
   },
   [validNodes.BuriedBox]: {
     label: "Buried Box",
@@ -297,6 +316,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 7,
       y: 5,
     },
+    autoIconUrl: "box.png",
   },
   [validNodes.Page4]: {
     label: "Page 4",
@@ -305,6 +325,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 7,
       y: 4,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.Ciphers1]: {
     label: "Ciphers 1",
@@ -313,6 +334,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 6,
       y: 4,
     },
+    autoIconUrl: "cipher.png",
   },
   [validNodes.Ciphers2]: {
     label: "Ciphers 2",
@@ -321,6 +343,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 5,
       y: 4,
     },
+    autoIconUrl: "cipher.png",
   },
   [validNodes.Ciphers3]: {
     label: "Ciphers 3",
@@ -329,6 +352,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 4,
       y: 4,
     },
+    autoIconUrl: "cipher.png",
   },
   [validNodes.Ciphers4]: {
     label: "Ciphers 4",
@@ -337,6 +361,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 3,
       y: 4,
     },
+    autoIconUrl: "cipher.png",
   },
   [validNodes.Ciphers5]: {
     label: "Ciphers 5",
@@ -345,6 +370,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 2,
       y: 4,
     },
+    autoIconUrl: "cipher.png",
   },
   [validNodes.Page10]: {
     label: "Page 10",
@@ -353,6 +379,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 2,
       y: 3,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.LeftMap]: {
     label: "Left Map",
@@ -361,6 +388,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 1,
       y: 4,
     },
+    autoIconUrl: "map.png",
   },
   [validNodes.Page2]: {
     label: "Page 2",
@@ -369,6 +397,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 7,
       y: 3,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.Page5]: {
     label: "Page 5",
@@ -377,6 +406,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 7,
       y: 2,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.TrainStamp]: {
     label: "Train Stamp",
@@ -385,6 +415,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 7,
       y: 1,
     },
+    autoIconUrl: "stamp.png",
   },
   [validNodes.IPAddress]: {
     label: "IP Address",
@@ -393,6 +424,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 6,
       y: 1,
     },
+    autoIconUrl: "ip.png",
   },
   [validNodes.Maze3D]: {
     label: "3D Maze",
@@ -401,6 +433,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 5,
       y: 1,
     },
+    autoIconUrl: "3d_maze.png",
   },
   [validNodes.PixelPark]: {
     label: "Pixel Park",
@@ -409,6 +442,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 5,
       y: 0,
     },
+    autoIconUrl: "pixelchest.png",
   },
   [validNodes.Scrabble]: {
     label: "Scrabble",
@@ -417,6 +451,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 8,
       y: 2,
     },
+    autoIconUrl: "scrabble.png",
   },
   [validNodes.DPadComboLock]: {
     label: "DPad - Combo Lock",
@@ -425,6 +460,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 9,
       y: 2,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.ComboLock]: {
     label: "Combo Lock",
@@ -433,6 +469,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 10,
       y: 2,
     },
+    autoIconUrl: "combo.png",
   },
   [validNodes.ImageTomatoCan]: {
     label: "Image - Tomato Can",
@@ -441,6 +478,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 2,
     },
+    autoIconUrl: "image.png",
   },
   [validNodes.TomatoCan]: {
     label: "Tomato Can",
@@ -449,6 +487,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 12,
       y: 2,
     },
+    autoIconUrl: "tomato.png",
   },
   [validNodes.RightMap]: {
     label: "Right Map",
@@ -457,6 +496,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 13,
       y: 2,
     },
+    autoIconUrl: "map.png",
   },
   [validNodes.DPadFoxMaze]: {
     label: "DPad - Fox Maze",
@@ -465,6 +505,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 1,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.FoxMaze]: {
     label: "Fox Maze",
@@ -473,6 +514,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 12,
       y: 1,
     },
+    autoIconUrl: "maze.png",
   },
   [validNodes.DPadLocationRemnantChest]: {
     label: "DPad - Location Image for Remnant Chest",
@@ -481,6 +523,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 13,
       y: 1,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.LocationRemnantChest]: {
     label: "Location - Remnant Chest",
@@ -489,6 +532,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 14,
       y: 1,
     },
+    autoIconUrl: "image.png",
   },
   [validNodes.RemnantChest]: {
     label: "Remnant Chest",
@@ -497,6 +541,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 15,
       y: 1,
     },
+    autoIconUrl: "chest.png",
   },
   [validNodes.ChestCard]: {
     label: "Power Card - Chest",
@@ -514,6 +559,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 8,
       y: 4,
     },
+    autoIconUrl: "hdd.png",
   },
   [validNodes.DPadCatstermind]: {
     label: "DPad - Catstermind",
@@ -522,6 +568,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 9,
       y: 4,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.Catstermind]: {
     label: "Catstermind",
@@ -530,6 +577,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 10,
       y: 4,
     },
+    autoIconUrl: "catstermind.png",
   },
   [validNodes.LocationCDDrive]: {
     label: "Location - CD Drive",
@@ -538,6 +586,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 4,
     },
+    autoIconUrl: "image.png",
   },
   [validNodes.CDCard]: {
     label: "Power Card - CD",
@@ -555,6 +604,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 12,
       y: 4,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.LocationSafe]: {
     label: "Location Image for Safe",
@@ -563,6 +613,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 13,
       y: 4,
     },
+    autoIconUrl: "image.png",
   },
   [validNodes.Page8]: {
     label: "Page 8",
@@ -571,6 +622,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 6,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.LittleFakeHouse]: {
     label: "Little Fake House",
@@ -579,6 +631,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 17,
       y: 6,
     },
+    autoIconUrl: "house.png",
   },
   [validNodes.GoldenPuzzle]: {
     label: "Golden Puzzle",
@@ -587,6 +640,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 18,
       y: 6,
     },
+    autoIconUrl: "puzzle.png",
   },
   [validNodes.DPadLocationShelfChest]: {
     label: "DPad - Location Image for Shelf Chest",
@@ -595,6 +649,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 19,
       y: 6,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.LocationShelfChest]: {
     label: "Location Image for Shelf Chest",
@@ -603,6 +658,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 20,
       y: 6,
     },
+    autoIconUrl: "image.png",
   },
   [validNodes.Page9]: {
     label: "Page 9",
@@ -611,6 +667,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 11,
       y: 5,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.DPadTerminal]: {
     label: "DPad - Terminal",
@@ -619,6 +676,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 10,
       y: 5,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.Terminal]: {
     label: "Terminal",
@@ -627,6 +685,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 9,
       y: 5,
     },
+    autoIconUrl: "terminal.png",
   },
   [validNodes.DPadFaceMural]: {
     label: "DPad - Face Mural",
@@ -635,6 +694,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 12,
       y: 5,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.FaceMural]: {
     label: "Face Mural",
@@ -643,6 +703,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 13,
       y: 5,
     },
+    autoIconUrl: "mural.png",
   },
   [validNodes.DPadHanoi]: {
     label: "DPad - Hanoi",
@@ -651,6 +712,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 14,
       y: 5,
     },
+    autoIconUrl: "dpad.png",
   },
   [validNodes.Hanoi]: {
     label: "Hanoi",
@@ -659,6 +721,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 15,
       y: 5,
     },
+    autoIconUrl: "hanoi.png",
   },
   [validNodes.FrogJump]: {
     label: "Frog Jump",
@@ -667,6 +730,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 16,
       y: 5,
     },
+    autoIconUrl: "frog.png",
   },
   [validNodes.Safe]: {
     label: "Safe",
@@ -675,6 +739,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 16,
       y: 4,
     },
+    autoIconUrl: "safe.png",
   },
   [validNodes.Page3]: {
     label: "Page 3",
@@ -683,6 +748,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 17,
       y: 4,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.Ornament]: {
     label: "Ornament",
@@ -691,6 +757,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 18,
       y: 4,
     },
+    autoIconUrl: "ornament.png",
   },
   [validNodes.ShelfKey]: {
     label: "Shelf Key",
@@ -699,6 +766,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 19,
       y: 4,
     },
+    autoIconUrl: "key.png",
   },
   [validNodes.ShelfChest]: {
     label: "Shelf Chest",
@@ -707,6 +775,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 20,
       y: 4,
     },
+    autoIconUrl: "chest.png",
   },
   [validNodes.StereoscopicGlasses]: {
     label: "Stereoscopic Glasses",
@@ -715,6 +784,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 21,
       y: 4,
     },
+    autoIconUrl: "glasses.png",
   },
   [validNodes.UVLight]: {
     label: "UV Light",
@@ -723,6 +793,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 20,
       y: 3,
     },
+    autoIconUrl: "uv_light.png",
   },
   [validNodes.Page7]: {
     label: "Page 7",
@@ -731,6 +802,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 22,
       y: 3,
     },
+    autoIconUrl: "page.png",
   },
   [validNodes.FiveDucksInitiative]: {
     label: "5 Ducks Initiative",
@@ -739,6 +811,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 22,
       y: 2,
     },
+    autoIconUrl: "5ducks.png",
   },
   [validNodes.Duck1]: {
     label: "Duck 1",
@@ -747,6 +820,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 22,
       y: 1,
     },
+    autoIconUrl: "duck.png",
   },
   [validNodes.Duck2]: {
     label: "Duck 2",
@@ -755,6 +829,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 22,
       y: 0,
     },
+    autoIconUrl: "duck.png",
   },
   [validNodes.Duck3]: {
     label: "Duck 3",
@@ -763,6 +838,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 21,
       y: 0,
     },
+    autoIconUrl: "duck.png",
   },
   [validNodes.Duck4]: {
     label: "Duck 4",
@@ -771,6 +847,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 21,
       y: 1,
     },
+    autoIconUrl: "duck.png",
   },
   [validNodes.Duck5]: {
     label: "Duck 5",
@@ -779,6 +856,7 @@ const nodes: { [id in validNodes]: MapNode } = {
       x: 20,
       y: 1,
     },
+    autoIconUrl: "duck.png",
   },
   [validNodes.DuckCard]: {
     label: "Power Card - Duck",

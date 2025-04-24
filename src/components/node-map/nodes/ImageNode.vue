@@ -1,5 +1,13 @@
 <template>
   <g class="location__icon">
+    <image
+      class="location__icon"
+      :x="xPos - size / 2"
+      :y="yPos - size / 2"
+      :width="size"
+      :height="size"
+      :href="computedIconUrl"
+    />
     <rect
       :x="xPos - size / 2"
       :y="yPos - size / 2"
@@ -8,16 +16,6 @@
       :rx="cornerRadius"
       :ry="cornerRadius"
       fill="none"
-    />
-    <image
-      class="location__icon"
-      :x="xPos - size / 2"
-      :y="yPos - size / 2"
-      :width="size"
-      :height="size"
-      :rx="cornerRadius"
-      :ry="cornerRadius"
-      :href="computedIconUrl"
     />
   </g>
 </template>
