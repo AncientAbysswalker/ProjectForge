@@ -9,13 +9,12 @@
     <user-settings :user-settings="userSettings"></user-settings>
     <v-btn
       style="position: absolute; top: 1rem; right: 1rem"
-      class=""
       size="small"
       icon
       plain
       @click.stop="handleSettingsButtonClick"
     >
-      <v-icon> mdi-close </v-icon>
+      <v-icon>mdi-close</v-icon>
     </v-btn>
   </v-navigation-drawer>
 </template>
@@ -26,6 +25,19 @@ export default {
   components: {
     UserSettings,
   },
-  props: ["navDrawerOpen", "userSettings", "handleSettingsButtonClick"],
+  props: {
+    navDrawerOpen: {
+      type: Boolean,
+      required: true,
+    },
+    userSettings: {
+      type: Object,
+      required: true,
+    },
+    handleSettingsButtonClick: {
+      type: Function,
+      required: true,
+    },
+  },
 };
 </script>

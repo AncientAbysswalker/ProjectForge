@@ -52,7 +52,7 @@
       :click-handler="clickHandler"
       :x-pos="xPos"
       :y-pos="yPos"
-      :is-visible="isHovered"
+      :is-visible="userSettings?.alwaysShowLabels.value || isHovered"
       @mouseover.stop
       @mouseleave.stop
     >
@@ -138,9 +138,19 @@ export default {
       }
     },
   },
+  watch: {
+    userSettings: {
+      handler: function (newValue) {
+        if (newValue) {
+          console.log("User settings changed:", newValue);
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
     clickHandler: function () {
-      this.$emit("node-selected", this.location);
+      this.$emit("node-selected", this.nodeData);
     },
     conditionalClickHandler: function () {
       if (this.isHovered) {

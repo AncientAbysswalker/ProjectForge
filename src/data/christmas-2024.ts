@@ -1299,7 +1299,7 @@ const solarSystem: SolarSystem = {
 // Modal content for each node
 export const modalContent: Record<validNodes, ModalContent> = {
   [validNodes.Start]: {
-    title: "Starting Point",
+    title: "The Hunt Begins!",
     description:
       "This is where the hunt begins. The first clue was hidden here.",
     sections: [
@@ -1312,10 +1312,27 @@ export const modalContent: Record<validNodes, ModalContent> = {
         body: "This was the starting point of our scavenger hunt. We placed the first clue here to get everyone started.",
       },
     ],
-    imageTooltips: {},
+    imageTooltips: {
+      "Start_1.jpg": [
+        {
+          x: 300,
+          y: 330,
+          width: 100,
+          height: 100,
+          text: "This part of the note contained a hidden message",
+        },
+        {
+          x: 500,
+          y: 200,
+          width: 120,
+          height: 60,
+          text: "This symbol was a key to decoding the message",
+        },
+      ],
+    },
   },
   [validNodes.Page1]: {
-    title: "Page 1",
+    title: "Booklet Sheet #1",
     description: "The first page of the hunt contained initial instructions.",
     sections: [
       {
@@ -1323,11 +1340,25 @@ export const modalContent: Record<validNodes, ModalContent> = {
         body: "Found under the coffee table in the living room.",
       },
       {
-        title: "Notes",
-        body: "This page contained the basic rules and the first riddle.",
+        title: "Cover",
+        body: "The cover of the booklet is a direct reference to the manual from the game Tunic, which this hunt is styled after",
+      },
+      {
+        title: "Page 1",
+        body: "The first page is also a reference to the game Tunic, with more personal touches added to the page. The text in the right box acts as the first hint and kicks off the hunt.",
       },
     ],
-    imageTooltips: {},
+    imageTooltips: {
+      "Page1_2_1.png": [
+        {
+          x: 300,
+          y: 330,
+          width: 100,
+          height: 100,
+          text: "This part of the note contained a hidden message",
+        },
+      ],
+    },
   },
   [validNodes.Sticky1]: {
     title: "Sticky Note 1",
@@ -1343,7 +1374,7 @@ export const modalContent: Record<validNodes, ModalContent> = {
       },
     ],
     imageTooltips: {
-      "sticky1.jpg": [
+      "modal_mockup.png": [
         {
           x: 300,
           y: 330,
@@ -1527,6 +1558,45 @@ export const modalContent: Record<validNodes, ModalContent> = {
       },
     ],
     imageTooltips: {},
+  },
+  [validNodes.LocationFakeRock]: {
+    title: "Fake Rock",
+    description: "A fake rock in the garden that contained the final clue.",
+    sections: [
+      {
+        title: "Location",
+        body: "Found in the garden near the rose bushes.",
+      },
+      {
+        title: "Notes",
+        body: "This fake rock contained the final clue that led to the treasure.",
+      },
+    ],
+    imageTooltips: {
+      "park.png": [
+        {
+          x: 0,
+          y: 0,
+          width: 1333,
+          height: 165,
+          text: "This section was hidden outside the bounds of the normal viewing area. It reads: ",
+        },
+        {
+          x: 0,
+          y: 1167,
+          width: 1333,
+          height: 165,
+          text: "This section was hidden outside the bounds of the normal viewing area. It reads: ",
+        },
+        {
+          x: 5,
+          y: 30,
+          width: 1323,
+          height: 105,
+          text: "77777",
+        },
+      ],
+    },
   },
   [validNodes.Sun]: {
     title: "The Sun",

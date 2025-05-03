@@ -15,8 +15,13 @@
     </v-list>
   </v-sheet>
 </template>
-<script>
+<script lang="ts">
 export default {
-  props: ["userSettings"],
+  props: {
+    userSettings: {
+      type: Array,
+      required: true,
+    },
+  },
 };
 </script>

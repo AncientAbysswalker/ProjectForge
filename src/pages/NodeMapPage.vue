@@ -51,10 +51,10 @@ interface DVPComponentData {
   mapSVG: SVGElement | null;
   panzoom: PanZoom;
   userSettings: {
-    showIcons: { value: boolean; label: string };
-    showBodyShadows: { value: boolean; label: string };
-    fading: { value: boolean; label: string };
-    showAtmosphere: { value: boolean; label: string };
+    alwaysShowLabels: {
+      value: boolean;
+      label: string;
+    };
   };
   mapBuilders: Record<string, SolarSystem>;
   currentMapName: string;
@@ -118,23 +118,10 @@ export default {
       mapSVG: null,
       panzoom: null,
       userSettings: {
-        showIcons: {
-          value: localStorage.getItem("user-settings.show-icons") !== "false",
-          label: "icons",
-        },
-        showBodyShadows: {
+        alwaysShowLabels: {
           value:
-            localStorage.getItem("user-settings.show-body-shadows") !== "false",
-          label: "shadows",
-        },
-        fading: {
-          value: localStorage.getItem("user-settings.fading") !== "false",
-          label: "fading",
-        },
-        showAtmosphere: {
-          value:
-            localStorage.getItem("user-settings.show-atmosphere") !== "false",
-          label: "atmosphere",
+            localStorage.getItem("user-settings.always-show-labels") === "true",
+          label: "Always Show Labels",
         },
       },
       // map data

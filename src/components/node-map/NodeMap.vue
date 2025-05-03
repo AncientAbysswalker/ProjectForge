@@ -5,7 +5,6 @@
       class="map"
       :class="{
         'path-selected': path.isSelected,
-        'fading-is-on': userSettings.fading.value,
         'map--is-visible': showMap,
       }"
       :width="mapWidth"
@@ -252,9 +251,4 @@ export default {
   &--is-visible
     opacity: 1
     transition: opacity .25s
-
-.path-selected.fading-is-on
-  .fadable
-    opacity: $opacity
-    transition: opacity $transition-standard
 </style>

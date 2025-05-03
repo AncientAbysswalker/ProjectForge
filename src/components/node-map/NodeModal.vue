@@ -2,9 +2,11 @@
   <v-dialog
     v-model="dialog"
     :width="dialogWidth"
+    height="90%"
     :fullscreen="$vuetify.display.smAndDown"
     content-class="node-modal"
     @click:outside="closeModal"
+    @transitionend="onDialogTransitionEnd"
   >
     <v-card class="node-modal__card">
       <!-- Header with title and close button -->
@@ -36,7 +38,10 @@
                   <div
                     v-for="(tooltip, index) in currentImageTooltips"
                     :key="index"
-                    class="node-modal__tooltip-hotspot"
+                    :class="[
+                      'node-modal__tooltip-hotspot',
+                      { visible: highlightsVisible },
+                    ]"
                     :style="getTooltipStyle(tooltip)"
                     @mouseover="activeTooltipIndex = index"
                     @mouseleave="activeTooltipIndex = null"
@@ -62,11 +67,17 @@
 
             <!-- Image navigation controls -->
             <div class="node-modal__image-controls">
-              <v-btn icon disabled>
+              <v-btn
+                icon
+                @click="previousImage"
+                :disabled="images.length === 0"
+              >
                 <v-icon>mdi-chevron-left</v-icon>
               </v-btn>
-              <span class="text-caption">Image 1 of 1</span>
-              <v-btn icon disabled>
+              <span class="text-caption">
+                Image {{ currentImageIndex + 1 }} of {{ images.length }}
+              </span>
+              <v-btn icon @click="nextImage" :disabled="images.length === 0">
                 <v-icon>mdi-chevron-right</v-icon>
               </v-btn>
             </div>
@@ -123,8 +134,8 @@ export default {
   data() {
     return {
       showTooltip: false,
-      images: [] as string[],
-      currentImageIndex: 0,
+      images: [] as string[], // Array to hold all images in the folder
+      currentImageIndex: 0, // Index of the currently displayed image
       activeTooltipIndex: null as number | null,
       imageLoaded: false,
       imageWidth: 0,
@@ -134,6 +145,8 @@ export default {
       imageOffsetLeft: 0,
       imageOffsetTop: 0,
       resizeObserver: null as ResizeObserver | null,
+      highlightsVisible: false, // Controls visibility of highlight areas
+      timeoutIds: [] as number[], // List to track all active timeouts
     };
   },
   computed: {
@@ -163,7 +176,7 @@ export default {
       };
     },
     dialogWidth() {
-      return this.$vuetify.display.mdAndUp ? "60%" : "90%";
+      return this.$vuetify.display.mdAndUp ? "90%" : "90%";
     },
     hasTooltips() {
       return (
@@ -172,16 +185,16 @@ export default {
       );
     },
     currentImage() {
-      // For now, we'll just return the mockup image for Sticky1
-      if (this.nodeId === "Sticky1") {
-        return "/src/assets/map/2024/images/Sticky1/modal_mockup.png";
-      }
-      return null;
+      // Return the currently selected image based on the index
+      return this.images.length > 0
+        ? this.images[this.currentImageIndex]
+        : null;
     },
     currentImageName() {
-      // For demo purposes, we'll use a hardcoded image name for Sticky1
-      if (this.nodeId === "Sticky1") {
-        return "sticky1.jpg";
+      // Extract the filename from the currentImage URL
+      if (this.currentImage) {
+        const parts = this.currentImage.split("/");
+        return parts[parts.length - 1]; // Return the last part of the URL (the filename)
       }
       return null;
     },
@@ -199,6 +212,43 @@ export default {
       this.dialog = false;
       this.$emit("modal-closed");
     },
+    async loadImages() {
+      try {
+        const images = import.meta.glob(
+          "/src/assets/map/2024/images/*/*.{png,jpg,jpeg}",
+          {
+            eager: true,
+            import: "default",
+          }
+        );
+        console.log(images); // Log to check the image paths
+
+        this.images = Object.entries(images)
+          .filter(([path]) => path.includes(`/${this.nodeId}/`))
+          .map(([, mod]) => mod as string);
+      } catch (error) {
+        console.error(
+          `Failed to load images for nodeId: ${this.nodeId}`,
+          error
+        );
+        this.images = [];
+      }
+    },
+    nextImage() {
+      // Navigate to the next image in the array
+      if (this.images.length > 0) {
+        this.currentImageIndex =
+          (this.currentImageIndex + 1) % this.images.length; //
+      }
+    },
+    previousImage() {
+      // Navigate to the previous image in the array
+      if (this.images.length > 0) {
+        this.currentImageIndex =
+          (this.currentImageIndex - 1 + this.images.length) %
+          this.images.length;
+      }
+    },
     onImageLoad(event: Event) {
       const img = event.target as HTMLImageElement;
 
@@ -207,7 +257,7 @@ export default {
       this.imageHeight = img.naturalHeight;
 
       // Add a slight delay to ensure layout is complete
-      setTimeout(() => {
+      this.setTrackedTimeout(() => {
         // Update image dimensions and position
         this.updateImageMeasurements();
 
@@ -218,7 +268,7 @@ export default {
         this.imageLoaded = true;
 
         // Force a re-measurement after a short delay to ensure accuracy
-        setTimeout(() => {
+        this.setTrackedTimeout(() => {
           this.updateImageMeasurements();
         }, 100);
       }, 50);
@@ -291,12 +341,81 @@ export default {
         height: `${height}px`,
       };
     },
+    setTrackedTimeout(callback: () => void, delay: number) {
+      const timeoutId = window.setTimeout(() => {
+        callback();
+        // Remove the timeout ID from the list after execution
+        this.timeoutIds = this.timeoutIds.filter((id) => id !== timeoutId);
+      }, delay);
+      this.timeoutIds.push(timeoutId);
+    },
+    clearAllTimeouts() {
+      this.timeoutIds.forEach((id) => clearTimeout(id));
+      this.timeoutIds = [];
+    },
+    updateMeasurementsAndShowHighlights() {
+      // Clear all existing timeouts to avoid conflicts
+      this.clearAllTimeouts();
+
+      // Delay measurements to ensure layout stabilization
+      this.setTrackedTimeout(() => {
+        this.updateImageMeasurements();
+
+        // Show highlights after measurements are updated
+        this.setTrackedTimeout(() => {
+          this.highlightsVisible = true;
+        }, 50); // Adjust delay as needed for animation timing
+      }, 200); // Delay to ensure layout stabilization
+    },
+    onDialogTransitionEnd() {
+      if (this.dialog) {
+        // Ensure measurements are updated and highlights are shown
+        this.updateMeasurementsAndShowHighlights();
+      } else {
+        // Immediately hide highlights when the dialog is closed
+        this.highlightsVisible = false;
+
+        // Clear all pending timeouts
+        this.clearAllTimeouts();
+      }
+    },
   },
   mounted() {
     // Add window resize listener
     window.addEventListener("resize", this.updateImageMeasurements);
+
+    // Load images and update measurements
+    this.loadImages();
+    this.$nextTick(() => {
+      this.updateImageMeasurements();
+    });
+  },
+  watch: {
+    dialog(newValue) {
+      if (newValue) {
+        // Load images and update measurements when the dialog is opened
+        this.loadImages();
+        this.updateMeasurementsAndShowHighlights();
+      } else {
+        // Hide highlights when the dialog is closed
+        this.highlightsVisible = false;
+        this.clearAllTimeouts();
+      }
+    },
+    // Also watch for nodeId changes in case the modal is reopened with a different node
+    nodeId() {
+      if (this.dialog) {
+        this.loadImages();
+        // Reset image state when nodeId changes
+        this.currentImageIndex = 0;
+        this.imageLoaded = false;
+      }
+    },
   },
   beforeUnmount() {
+    // Clear all timeouts on unmount
+    this.clearAllTimeouts();
+
     // Clean up resize observer
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
@@ -335,7 +454,7 @@ export default {
   &__image-container
     position: relative
     width: 100%
-    height: 300px
+    height: 80%
     background-color: #f5f5f5
     border-radius: 4px
     border: 1px solid rgba(0, 0, 0, 0.1)
@@ -368,6 +487,10 @@ export default {
     margin-bottom: 16px
 
   &__tooltip-hotspot
+    opacity: 0
+    transition: opacity 0.3s ease
+    &.visible
+      opacity: 1
     position: absolute
     background-color: rgba(255, 255, 0, 0.3)
     border: 1px dashed #999

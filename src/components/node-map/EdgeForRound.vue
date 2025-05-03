@@ -131,13 +131,4 @@ export default {
           color: $color-map-light
           background-color: $color-map-dark
           transition: opacity $transition-standard, color $transition-standard, background-color $transition-standard
-
-    &.fading-is-on
-      .edge-on-path
-        .edge
-          &__line
-            opacity: 1
-
-          &__label
-            opacity: 1
 </style>
