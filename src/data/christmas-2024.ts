@@ -139,7 +139,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     },
   },
   [validNodes.Page1]: {
-    label: "Page 1",
+    label: "Sheet 1",
     nodeType: "image",
     position: {
       x: 1,
@@ -220,7 +220,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "chest.png",
   },
   [validNodes.Page6]: {
-    label: "Page 6",
+    label: "Sheet 6",
     nodeType: "image",
     position: {
       x: 9,
@@ -319,7 +319,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "box.png",
   },
   [validNodes.Page4]: {
-    label: "Page 4",
+    label: "Sheet 4",
     nodeType: "image",
     position: {
       x: 7,
@@ -373,7 +373,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "cipher.png",
   },
   [validNodes.Page10]: {
-    label: "Page 10",
+    label: "Sheet 10",
     nodeType: "image",
     position: {
       x: 2,
@@ -391,7 +391,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "map.png",
   },
   [validNodes.Page2]: {
-    label: "Page 2",
+    label: "Sheet 2",
     nodeType: "image",
     position: {
       x: 7,
@@ -400,7 +400,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "page.png",
   },
   [validNodes.Page5]: {
-    label: "Page 5",
+    label: "Sheet 5",
     nodeType: "image",
     position: {
       x: 7,
@@ -616,7 +616,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "image.png",
   },
   [validNodes.Page8]: {
-    label: "Page 8",
+    label: "Sheet 8",
     nodeType: "image",
     position: {
       x: 11,
@@ -661,7 +661,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "image.png",
   },
   [validNodes.Page9]: {
-    label: "Page 9",
+    label: "Sheet 9",
     nodeType: "image",
     position: {
       x: 11,
@@ -742,7 +742,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "safe.png",
   },
   [validNodes.Page3]: {
-    label: "Page 3",
+    label: "Sheet 3",
     nodeType: "image",
     position: {
       x: 17,
@@ -796,7 +796,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "uv_light.png",
   },
   [validNodes.Page7]: {
-    label: "Page 7",
+    label: "Sheet 7",
     nodeType: "image",
     position: {
       x: 22,
@@ -1301,15 +1301,11 @@ export const modalContent: Record<validNodes, ModalContent> = {
   [validNodes.Start]: {
     title: "The Hunt Begins!",
     description:
-      "This is where the hunt begins. The first clue was hidden here.",
+      "The hunt begins with the intro page from the hunt's manual. This page was hidden in the insert materials of the Tunic Vinyl, provided to brother as a gift.",
     sections: [
       {
-        title: "Location",
-        body: "Hidden in the living room under the coffee table.",
-      },
-      {
         title: "Notes",
-        body: "This was the starting point of our scavenger hunt. We placed the first clue here to get everyone started.",
+        body: "The vinyl was originally supposed to arrive years ago, but only recently showed up due to production delays. This late arrival inspired the decision to hide the first clue in the vinyl's materials, fitting the theme and providing a memorable kickoff.",
       },
     ],
     imageTooltips: {
@@ -1332,37 +1328,50 @@ export const modalContent: Record<validNodes, ModalContent> = {
     },
   },
   [validNodes.Page1]: {
-    title: "Booklet Sheet #1",
-    description: "The first page of the hunt contained initial instructions.",
+    title: "Manual - Sheet #1",
+    description: "The first page of the hunt manual. Contains the initial instructions and first hint leading further into the hunt, as well as the manual's cover.",
     sections: [
       {
         title: "Location",
-        body: "Found under the coffee table in the living room.",
+        body: "Found inside the Tunic Vinyl gifted to my brother this year.",
       },
       {
-        title: "Cover",
-        body: "The cover of the booklet is a direct reference to the manual from the game Tunic, which this hunt is styled after",
+        title: "Secret Message",
+        body: "The first page contains a hidden message that can be revealed with a UV light. The message is a reference to the game Tunic, which has a similar hidden message on the same page of its manual. The message reads \"furnace\" and had a picture of a mystery box. This leads to the end goal of the hunt, a suitcase hidden by the furnace.",
       },
       {
-        title: "Page 1",
-        body: "The first page is also a reference to the game Tunic, with more personal touches added to the page. The text in the right box acts as the first hint and kicks off the hunt.",
+        title: "Hidden Intimation",
+        body: "The Traditional Chinese writing on the intro page says something close to \"inside the porcelain cabinet\", referring to the china cabinet.",
+      },
+      {
+        title: "Notes",
+        body: "The cover and intro page are direct references to Tunic's manual and its style. The logos on the first page mostly fun aesthetic choices and don't have any bearing on the hunt itself.",
       },
     ],
     imageTooltips: {
       "Page1_2_1.png": [
         {
-          x: 300,
-          y: 330,
-          width: 100,
-          height: 100,
-          text: "This part of the note contained a hidden message",
+          x: 600,
+          y: 1705,
+          width: 228,
+          height: 228,
+          text: "Translates to \"inside the porcelain cabinet\"",
+        },
+      ],
+      "Page1_2_2.jpg": [
+        {
+          x: 2342,
+          y: 1555,
+          width: 1330,
+          height: 730,
+          text: "Only visible with UV light, this message reads \"furnace\"",
         },
       ],
     },
   },
   [validNodes.Sticky1]: {
-    title: "Sticky Note 1",
-    description: "A yellow sticky note with a cryptic message.",
+    title: "Sticky Note #1",
+    description: "The first of many sticky notes - what I call the 'simple stickies' part of the hunt. This first note points towards the next sticky note hidden near mother's document pile on the wall.",
     sections: [
       {
         title: "Location",
@@ -1370,84 +1379,54 @@ export const modalContent: Record<validNodes, ModalContent> = {
       },
       {
         title: "Notes",
-        body: "This sticky note contained a riddle that led to the next clue.",
+        body: "Mother has a rather large document pile on her desk that she eventually works through. This hint is funny because it somewhat points to looking through this pile, which is totally unnecessary!.",
       },
     ],
-    imageTooltips: {
-      "modal_mockup.png": [
-        {
-          x: 300,
-          y: 330,
-          width: 100,
-          height: 100,
-          text: "This part of the note contained a hidden message",
-        },
-        {
-          x: 500,
-          y: 200,
-          width: 120,
-          height: 60,
-          text: "This symbol was a key to decoding the message",
-        },
-      ],
-    },
   },
   [validNodes.Sticky2]: {
-    title: "Sticky Note 2",
-    description: "A blue sticky note with a partial code.",
+    title: "Sticky Note #2",
+    description: "The second simple sticky note. This note points towards the next sticky note hidden on the back of mother's bedside table.",
     sections: [
       {
         title: "Location",
-        body: "Found under the kitchen sink.",
-      },
-      {
-        title: "Notes",
-        body: "This sticky note had part of a code needed later.",
+        body: "Found on the wall/bookshelf beside mother's computer desk and document pile.",
       },
     ],
     imageTooltips: {},
   },
   [validNodes.Sticky3]: {
-    title: "Sticky Note 3",
-    description: "A green sticky note with a riddle.",
+    title: "Sticky Note #3",
+    description: "The third simple sticky note. This note points towards the next sticky note hidden on the inside of the closet door in my sister's room.",
     sections: [
       {
         title: "Location",
-        body: "Found inside a book on the bookshelf.",
-      },
-      {
-        title: "Notes",
-        body: "This sticky note contained a riddle about water.",
+        body: "Found on the back of mother's bedside table.",
       },
     ],
     imageTooltips: {},
   },
   [validNodes.Sticky4]: {
-    title: "Sticky Note 4",
-    description: "A pink sticky note with coordinates.",
+    title: "Sticky Note #4",
+    description: "The fourth simple sticky note. This note points towards the next sticky note hidden with the large family room clock that gets packed away for Christmas.",
     sections: [
       {
         title: "Location",
-        body: "Found taped under the dining table.",
+        body: "Found on the inside of the closet door in my sister's room.",
       },
       {
         title: "Notes",
-        body: "This sticky note had coordinates that pointed to the backyard.",
+        body: "There is also another sticky note hidden on the inside of the wardrobe door in my sister's room. This note says \"NOPE! NOT HERE!\" since this is the more obvious place to look for the next sticky note.",
       },
     ],
     imageTooltips: {},
   },
   [validNodes.Sticky5]: {
-    title: "Sticky Note 5",
-    description: "An orange sticky note with the final hint.",
+    title: "Sticky Note #5",
+    description: "The fifth and final simple sticky note. This note is more cryptic and shows a cat having a moment of inspiration. The Trunic translates to \"I stole it!\". This, along with the image of the light fixture missing a bulb, points towards the next clue hidden in the fake light bulb - the one that the cat has stolen for inspiration.",
     sections: [
       {
         title: "Location",
-        body: "Found inside the mailbox.",
-      },
-      {
-        title: "Notes",
-        body: "This sticky note contained the final hint needed to find the fake bulb.",
+        body: "Found with the large family room clock that gets packed away for Christmas.",
       },
     ],
     imageTooltips: {},
@@ -1498,7 +1477,7 @@ export const modalContent: Record<validNodes, ModalContent> = {
     imageTooltips: {},
   },
   [validNodes.Page6]: {
-    title: "Page 6",
+    title: "Sheet 6",
     description: "The sixth page of instructions found in the chest.",
     sections: [
       {
