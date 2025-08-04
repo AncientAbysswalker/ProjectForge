@@ -1,18 +1,42 @@
 /**
  * router/index.ts
  *
- * Automatic routes for `./src/pages/*.vue`
+ * Project-based routing structure: /{project}/{section}
  */
 
 // Composables
+import { createRouter, createWebHistory } from "vue-router";
+
+// Import components
 import HelloWorld from "@/components/HelloWorld.vue";
-import { createRouter, createWebHistory } from "vue-router/auto";
-// import { routes } from 'vue-router/auto-routes'
-import DeltaVMapPage from "@/pages/NodeMapPage.vue";
+import NodeMapPage from "@/pages/NodeMapPage.vue";
 
 const routes = [
-  { path: "/", component: HelloWorld },
-  { path: "/about", component: DeltaVMapPage },
+  // Root page
+  { path: "/", name: "home", component: HelloWorld },
+  
+  // Christmas 2024 Hunt project routes
+  {
+    path: "/christmas-2024-hunt",
+    children: [
+      { 
+        path: "map", 
+        name: "christmas-2024-hunt-map", 
+        component: NodeMapPage,
+        props: { dataConfig: "christmas-2024" }
+      },
+      { 
+        path: "map2", 
+        name: "christmas-2024-hunt-map2", 
+        component: NodeMapPage,
+        props: { }
+      },
+      // Add other sections later: about, gallery, etc.
+    ]
+  },
+  
+  // Legacy redirect - redirect old /about to new structure
+  { path: "/about", redirect: "/christmas-2024-hunt/map" },
 ];
 
 const router = createRouter({

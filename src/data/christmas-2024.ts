@@ -1,43 +1,13 @@
-export interface Position {
-  x: number;
-  y: number;
-}
-
-export interface TooltipData {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  text: string;
-}
-
-export interface TextSection {
-  title: string;
-  body: string;
-}
-
-export interface ModalContent {
-  title: string; // Title for the modal
-  description: string; // Main text content
-  sections?: TextSection[]; // Sections of text content
-  imageTooltips?: Record<string, TooltipData[]>; // Map of image filename to tooltips
-}
-
-export interface MapNode {
-  label: string;
-  nodeType: string;
-  parent?: string;
-  color?: string;
-  altitude?: string;
-  position: Position;
-  iconUrl?: string;
-  autoIconUrl?: string;
-  text?: string;
-}
-
-export interface MapNodeWithId extends MapNode {
-  id: string;
-}
+import type {
+  Position,
+  TooltipData,
+  TextSection,
+  ModalContent,
+  MapNode,
+  MapNodeWithId,
+  MapEdge,
+  ProjectMapConfig,
+} from "@/types/ProjectMapConfig";
 
 export enum validNodes {
   Start = "Start",
@@ -229,7 +199,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "page.png",
   },
   [validNodes.DPadWitness]: {
-    label: "DPad - Witness",
+    label: "Golden Path",
     nodeType: "image",
     position: {
       x: 10,
@@ -901,14 +871,8 @@ const nodes: { [id in validNodes]: MapNode } = {
   },
 };
 
-export interface MapEdge {
-  sourceNode: validNodes;
-  targetNode: validNodes;
-  forceNonOrthogonal?: boolean; // Optional property to force non-orthogonal edges
-  verticalBeforeHorizontal?: boolean; // Optional property to force vertical before horizontal edges
-}
 
-const edges: MapEdge[] = [
+const edges: MapEdge<validNodes>[] = [
   {
     sourceNode: validNodes.Start,
     targetNode: validNodes.Page1,
@@ -1272,15 +1236,9 @@ const edges: MapEdge[] = [
   },
 ];
 
-export interface SolarSystem {
-  getLocations: () => { [id: string]: MapNodeWithId };
-  getDeltas: () => MapEdge[];
-  systemName: string;
-  star: string;
-}
 
-const solarSystem: SolarSystem = {
-  getLocations: function () {
+const projectMapConfig: ProjectMapConfig = {
+  getMapNodes: function () {
     const nodeMap: { [id: string]: MapNodeWithId } = {};
 
     for (const [id, node] of Object.entries(nodes)) {
@@ -1289,11 +1247,12 @@ const solarSystem: SolarSystem = {
 
     return nodeMap;
   },
-  getDeltas: function () {
+  getMapEdges: function () {
     return edges;
   },
-  systemName: "Solar",
-  star: "Page8",
+  projectId: "christmas-2024",
+  centerNodeId: "Page8",
+  title: "Christmas 2024 Hunt Map",
 };
 
 // Modal content for each node
@@ -1329,7 +1288,7 @@ export const modalContent: Record<validNodes, ModalContent> = {
   },
   [validNodes.Page1]: {
     title: "Manual - Sheet #1",
-    description: "The first page of the hunt manual. Contains the initial instructions and first hint leading further into the hunt, as well as the manual's cover.",
+    description: "The first sheet of the hunt manual. Contains the initial instructions and first hint leading further into the hunt, as well as the manual's cover. The first hint points to checking the fridge door for a clue. This refers both to the first sticky note on the outside of the door, as well as inside the door for a chest.",
     sections: [
       {
         title: "Location",
@@ -1433,68 +1392,111 @@ export const modalContent: Record<validNodes, ModalContent> = {
   },
   [validNodes.FakeBulb]: {
     title: "Fake Light Bulb",
-    description: "A light bulb that contained a hidden message when unscrewed.",
+    description: "In one of the light fixtures in the living room, I replaced one of the lightbulbs with a fake bulb. This bulb could be removed and opened to reveal a hidden message and a small key. The note points out that there might be more to the first hint than originally discovered, along with Trunic for \"box\".",
     sections: [
       {
         title: "Location",
-        body: "Found in the lamp in the guest bedroom.",
+        body: "Living room light fixture.",
       },
       {
         title: "Notes",
-        body: "This fake light bulb unscrewed to reveal a small compartment with the fridge key.",
+        body: "Funny enough, people were commenting on the dead light bulb for a day or so before realizing it was fake.",
       },
     ],
     imageTooltips: {},
   },
   [validNodes.FridgeKey]: {
-    title: "Fridge Key",
+    title: "Key",
     description: "A key found inside the fake bulb that opened the fridge.",
     sections: [
       {
         title: "Location",
-        body: "Found inside the fake light bulb.",
-      },
-      {
-        title: "Notes",
-        body: "This key was needed to unlock a small lockbox in the refrigerator.",
+        body: "Found inside the door of the fridge.",
       },
     ],
     imageTooltips: {},
   },
   [validNodes.FridgeChest]: {
     title: "Chest in the Fridge",
-    description: "A small chest hidden in the back of the fridge.",
+    description: "A small locked chest hidden in the door of the fridge. The chest contains one of the pages of the manual.",
     sections: [
       {
         title: "Location",
-        body: "Found in the back of the refrigerator behind the milk.",
-      },
-      {
-        title: "Notes",
-        body: "This chest was locked and required the key from the fake bulb to open.",
+        body: "Found inside the door of the fridge.",
       },
     ],
     imageTooltips: {},
   },
   [validNodes.Page6]: {
-    title: "Sheet 6",
-    description: "The sixth page of instructions found in the chest.",
+    title:  "Manual - Sheet #6",
+    description: "The sixth sheet of the hunt manual, containing pages 10 and 11. Page 10 depicts a train engine driving along the tracks. Page 11 depicts my brother's computer desk with the cat sleeping on it. The left computer screen has a golden path on it. This is a hint to enter this golden path on this computer by pressing the arrow keys in that order, similar to Tunic or Animal Well.",
     sections: [
       {
         title: "Location",
-        body: "Found inside the chest in the refrigerator.",
+        body: "Found inside a small locked chest hidden in the door of the fridge",
       },
       {
-        title: "Notes",
-        body: "This page contained instructions for the final phase of the hunt.",
+        title: "Hidden Intimation - Page 10",
+        body: "The markings on the train engine are the language of Koppai from Pikmin. This translates to \"Bass Drum\", pointing to checking inside the Bass Drum.",
+      },
+      {
+        title: "Hidden Intimation - Page 11",
+        body: "There is writing on the notes on the wall in the language of the Devoted from the game Chants of Sennaar. This translates to \"Go to garden, seek pot\", referring to a flower pot in the garden.",
       },
     ],
-    imageTooltips: {},
+    imageTooltips: {
+      "Page6_1.png": [
+        {
+          x: 868,
+          y: 740,
+          width: 780,
+          height: 90,
+          text: "Bass Drum",
+        },
+      ],
+      "Page6_2.png": [
+        {
+          x: 135,
+          y: 105,
+          width: 90,
+          height: 90,
+          text: "Go",
+        },
+        {
+          x: 315,
+          y: 40,
+          width: 90,
+          height: 90,
+          text: "Garden",
+        },
+        {
+          x: 475,
+          y: 375,
+          width: 90,
+          height: 90,
+          text: "Seek",
+        },
+        {
+          x: 580,
+          y: 325,
+          width: 90,
+          height: 90,
+          text: "Pot",
+        },
+        {
+          x: 50,
+          y: 880,
+          width: 300,
+          height: 400,
+          text: "This golden path can be entered on the computer by pressing the arrow keys.",
+        },
+      ],
+    },
   },
   [validNodes.DPadWitness]: {
-    title: "D-Pad Witness Puzzle",
+    title: "Golden Path",
     description:
-      "A puzzle inspired by The Witness game with directional controls.",
+      "🡳 🡲 🡱 🡰 🡱 🡲\nOR\n🡳 🡰 🡱 🡲 🡱 🡰",
     sections: [
       {
         title: "Location",
@@ -1508,17 +1510,29 @@ export const modalContent: Record<validNodes, ModalContent> = {
     imageTooltips: {},
   },
   [validNodes.TheWitness]: {
-    title: "The Witness Reference",
+    title: "The Witness",
     description:
-      "A direct reference to The Witness game with a similar puzzle mechanic.",
+      "A sequence of witness puzzle that run after entering the golden path. Upon entering the golden path, a loading bar appears saying please wait, after which windows with witness puzzles start popping up on the computer.",
     sections: [
       {
         title: "Location",
-        body: "Found on the TV screen in the living room.",
+        body: "Run after entering golden path.",
+      },
+      {
+        title: "Prize Window",
+        body: "After completing all the puzzles, a window pops up with a picture of the local park. Upon closer inspection, the word \"Rock\" is written very faintly in Trunic.",
+      },
+      {
+        title: "Glitch Bunny",
+        body: "This bunny is found by cancelling the loading window before the witness fully starts up. The Trunic text states \"Please wait not and disregard the above\" as a clue to this. This puzzle was inspired by our playthrough of the DLC of Outer Wilds, there you need to intentionally exit the play area during the loading screens.",
       },
       {
         title: "Notes",
-        body: "This puzzle was directly inspired by The Witness game and required tracing a path.",
+        body: "This puzzle is the oldest part of the overall hunt. Originally I had just implemented the ability to enter the golden path and the witness as they were fun references to games that my family enjoyed. The loading window was added later as a bit of a joke as well as to facilitate the addition of the bunny.",
+      },
+      {
+        title: "Credit",
+        body: "Source code based off https://github.com/jbzdarkid/jbzdarkid.github.io",
       },
     ],
     imageTooltips: {},
@@ -1617,4 +1631,4 @@ export const modalContent: Record<validNodes, ModalContent> = {
   },
 };
 
-export default solarSystem;
+export default projectMapConfig;

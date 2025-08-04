@@ -8,7 +8,7 @@
       :node-id="selectedNodeId"
       @modal-closed="handleModalClosed"
     ></node-modal>
-    <site-title class="fade-in">Christmas 2024: Secret Hunt Map</site-title>
+    <site-title class="fade-in">{{ getPageTitle() }}</site-title>
     <node-map
       :loaded-map-data="loadedMapData"
       :map="map"
@@ -32,7 +32,6 @@ import panzoom from "panzoom";
 import type { PanZoom } from "panzoom";
 
 import Utils from "../utils/utils";
-import SolarSystem from "../data/christmas-2024";
 
 // import Controls from "../components/Controls";
 import NodeMap from "../components/node-map/NodeMap.vue";
@@ -40,7 +39,7 @@ import SiteTitle from "../components/SiteTitle.vue";
 import NodeModal from "../components/node-map/NodeModal.vue";
 
 // These types are used in the component's implementation
-import type { SolarSystem } from "@/data/christmas-2024";
+import type { ProjectMapConfig } from "@/types/ProjectMapConfig";
 import UserSettings from "@/components/node-map/UserSettings";
 import SettingsDrawer from "@/components/node-map/SettingsDrawer";
 
@@ -56,7 +55,7 @@ interface DVPComponentData {
       label: string;
     };
   };
-  mapBuilders: Record<string, SolarSystem>;
+  mapBuilders: Record<string, ProjectMapConfig>;
   currentMapName: string;
   loadedMapData: {
     name: string;
@@ -86,30 +85,27 @@ export default {
     UserSettings,
     SettingsDrawer,
   },
-  data(): DVPComponentData {
-    const mapBuilders = this.getMapBuilders();
-
-    // the default map name is Solar ...
-    let currentMapName = "Solar";
-
-    // .. try to get the map name from the URL ...
-    if (this.mapNameIsSupplied()) {
-      if (this.parameterMapNameIsValid()) {
-        currentMapName = this.$route.query.map;
-      } else {
-        this.$router.push("/map-not-found/" + this.$route.query.map);
-        return {};
-      }
-    } else {
-      // ... or get the map name from local storage
-      const localStorageMapName = localStorage.getItem("map-name");
-      if (localStorageMapName) {
-        currentMapName = localStorageMapName;
-      }
+  props: {
+    dataConfig: {
+      type: String
     }
+  },
+  data(): DVPComponentData {
+    // Map builders will be populated dynamically
+    const mapBuilders = {};
 
-    // make map name lowercase
-    currentMapName = currentMapName.toLowerCase();
+    // Default to loading the default map initially
+    let currentMapName = "default-map";
+    console.log("Current map name from prop:", this.dataConfig);
+
+    // Create a temporary empty map data structure (will be replaced in mounted)
+    const emptyMapData = {
+      name: "loading",
+      startingNodeId: "loading",
+      locationsObject: {},
+      edgeArray: [],
+      edgeGraph: {},
+    };
 
     const dataObject = {
       pageLoaded: false,
@@ -127,7 +123,7 @@ export default {
       // map data
       mapBuilders,
       currentMapName,
-      loadedMapData: this.resetMapDataStructures(mapBuilders[currentMapName]),
+      loadedMapData: emptyMapData,
       // map position
       map: {
         globalXOffset: 3000,
@@ -158,10 +154,17 @@ export default {
     handleSettingsButtonClick: function () {
       this.navDrawerOpen = !this.navDrawerOpen;
     },
-    getMapBuilders: function () {
-      return {
-        solar: SolarSystem,
-      };
+    async loadMapConfig(configName) {
+      try {
+        // Dynamically import the map configuration
+        const module = await import(`../data/${configName}.ts`);
+        return module.default;
+      } catch (error) {
+        console.warn(`Failed to load map config '${configName}', falling back to default-map`);
+        // Fallback to default map
+        const defaultModule = await import(`../data/default-map.ts`);
+        return defaultModule.default;
+      }
     },
     getLocationObject: function (id) {
       return this.loadedMapData.locationsObject[id];
@@ -170,8 +173,7 @@ export default {
       this.loadedMapData.locationsObject[locationId] = locationData;
     },
     mapNameIsValid: function (mapName) {
-      const mapBuilders = this.getMapBuilders();
-      return Utils.isDefined(mapBuilders[mapName]);
+      return Utils.isDefined(this.mapBuilders[mapName]);
     },
     mapNameIsSupplied: function () {
       return (
@@ -189,8 +191,8 @@ export default {
     },
     resetMapDataStructures: function (mapBuilder) {
       const mapData = {
-        name: mapBuilder.systemName, // Use systemName since mapName doesn't exist yet
-        startingNodeId: mapBuilder.star, // Renamed from 'star' to better reflect its purpose
+        name: mapBuilder.projectId,
+        startingNodeId: mapBuilder.centerNodeId,
         locationsObject: {},
         edgeArray: [],
         edgeGraph: {},
@@ -207,10 +209,10 @@ export default {
       this.resetMapDataStructures(mapBuilder); // Wipe existing data
 
       // load manual locations data
-      this.loadedMapData.locationsObject = mapBuilder.getLocations(this);
+      this.loadedMapData.locationsObject = mapBuilder.getMapNodes();
 
       // add edges
-      this.loadedMapData.edgeArray = mapBuilder.getDeltas();
+      this.loadedMapData.edgeArray = mapBuilder.getMapEdges();
     },
     nodeSelected: function (node) {
       console.log(node.id);
@@ -284,6 +286,17 @@ export default {
 
       return x;
     },
+    getPageTitle: function() {
+      const currentMapBuilder = this.mapBuilders[this.currentMapName];
+      if (currentMapBuilder && currentMapBuilder.title) {
+        return currentMapBuilder.title;
+      }
+      return 'Project Map';
+    },
+    setDocumentTitle: function() {
+      const pageTitle = this.getPageTitle();
+      document.title = pageTitle;
+    },
     calculateYPos: function (n) {
       const y = n * this.map.yDelta + this.map.globalYOffset;
       if (y > this.map.maxY) {
@@ -297,8 +310,31 @@ export default {
       return y;
     },
   },
-  mounted() {
+  watch: {
+    dataConfig: function(newConfig, oldConfig) {
+      if (newConfig !== oldConfig) {
+        // Update document title when dataConfig changes
+        this.setDocumentTitle();
+      }
+    }
+  },
+  async mounted() {
     const self = this;
+    
+    // Dynamically load the map configuration
+    const configName = this.dataConfig || "default-map";
+    const mapConfig = await this.loadMapConfig(configName);
+    
+    // Update mapBuilders with the loaded config
+    this.mapBuilders[mapConfig.projectId] = mapConfig;
+    this.currentMapName = mapConfig.projectId;
+    
+    // Reset map data with the loaded config
+    this.resetMapDataStructures(mapConfig);
+    
+    // Set document title from MapConfig
+    this.setDocumentTitle();
+    
     self.createData(this.loadedMapData.name);
     self.mapSVG = document.getElementById("map");
     const mapContainer = document.querySelector(".map-container");
