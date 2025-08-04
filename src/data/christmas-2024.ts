@@ -30,6 +30,7 @@ export enum validNodes {
   TowelKey = "TowelKey",
   TowelChest = "TowelChest",
   SDCard = "SDCard",
+  WaldSucher = "WaldSucher",
   BuriedBox = "BuriedBox",
   Page4 = "Page4",
   Ciphers1 = "Ciphers1",
@@ -92,6 +93,8 @@ export enum validNodes {
   Duck4 = "Duck4",
   Duck5 = "Duck5",
   DuckCard = "DuckCard",
+  Bokalas = "Bokalas",
+  Thoovaalakal = "Thoovaalakal",
   Sun = "Sun",
   LSunO = "LSunO",
   End = "End",
@@ -217,7 +220,7 @@ const nodes: { [id in validNodes]: MapNode } = {
     autoIconUrl: "witness.png",
   },
   [validNodes.LocationFakeRock]: {
-    label: "Location - Fake Rock",
+    label: "Prize Window",
     nodeType: "image",
     position: {
       x: 11,
@@ -252,6 +255,24 @@ const nodes: { [id in validNodes]: MapNode } = {
     },
     autoIconUrl: "usb.png",
   },
+  [validNodes.Bokalas]: {
+    label: "Bokalas",
+    nodeType: "image",
+    position: {
+      x: 7,
+      y: 8,
+    },
+    autoIconUrl: "image.png",
+  },
+  [validNodes.Thoovaalakal]: {
+    label: "Thoovaalakal",
+    nodeType: "image",
+    position: {
+      x: 10,
+      y: 7,
+    },
+    autoIconUrl: "image.png",
+  },
   [validNodes.TowelKey]: {
     label: "Towel Key",
     nodeType: "image",
@@ -275,9 +296,18 @@ const nodes: { [id in validNodes]: MapNode } = {
     nodeType: "image",
     position: {
       x: 7,
-      y: 6,
+      y: 7,
     },
     autoIconUrl: "sd.png",
+  },
+  [validNodes.WaldSucher]: {
+    label: "Waldsucher",
+    nodeType: "image",
+    position: {
+      x: 7,
+      y: 6,
+    },
+    autoIconUrl: "video.png",
   },
   [validNodes.BuriedBox]: {
     label: "Buried Box",
@@ -948,12 +978,19 @@ const edges: MapEdge<validNodes>[] = [
   },
   {
     sourceNode: validNodes.MazeUSB,
+    targetNode: validNodes.Bokalas,
+  },
+  {
+    sourceNode: validNodes.Bokalas,
     targetNode: validNodes.SDCard,
   },
   {
     sourceNode: validNodes.MazeUSB,
+    targetNode: validNodes.Thoovaalakal,
+  },
+  {
+    sourceNode: validNodes.Thoovaalakal,
     targetNode: validNodes.TowelChest,
-    verticalBeforeHorizontal: true,
   },
   {
     sourceNode: validNodes.TowelKey,
@@ -965,6 +1002,10 @@ const edges: MapEdge<validNodes>[] = [
   },
   {
     sourceNode: validNodes.SDCard,
+    targetNode: validNodes.WaldSucher,
+  },
+  {
+    sourceNode: validNodes.WaldSucher,
     targetNode: validNodes.BuriedBox,
   },
   {
@@ -1519,10 +1560,6 @@ export const modalContent: Record<validNodes, ModalContent> = {
         body: "Run after entering golden path.",
       },
       {
-        title: "Prize Window",
-        body: "After completing all the puzzles, a window pops up with a picture of the local park. Upon closer inspection, the word \"Rock\" is written very faintly in Trunic.",
-      },
-      {
         title: "Glitch Bunny",
         body: "This bunny is found by cancelling the loading window before the witness fully starts up. The Trunic text states \"Please wait not and disregard the above\" as a clue to this. This puzzle was inspired by our playthrough of the DLC of Outer Wilds, there you need to intentionally exit the play area during the loading screens.",
       },
@@ -1539,11 +1576,11 @@ export const modalContent: Record<validNodes, ModalContent> = {
   },
   [validNodes.FakeRock]: {
     title: "Fake Rock",
-    description: "A fake rock in the garden that contained the final clue.",
+    description: "A fake rock hidden in the local park. The prize window from the witness pointed to this location. The rock contained a key as well as a broken USB drive with golden letters for \"Mom\".",
     sections: [
       {
         title: "Location",
-        body: "Found in the garden near the rose bushes.",
+        body: "Hidden in the low brush behind a fence in the local park.",
       },
       {
         title: "Notes",
@@ -1553,20 +1590,27 @@ export const modalContent: Record<validNodes, ModalContent> = {
     imageTooltips: {},
   },
   [validNodes.LocationFakeRock]: {
-    title: "Fake Rock",
-    description: "A fake rock in the garden that contained the final clue.",
+    title: "Witness Prize Window",
+    description: "A picture of the local park. Upon closer inspection, the word \"Rock\" is written very faintly in Trunic.",
     sections: [
       {
         title: "Location",
-        body: "Found in the garden near the rose bushes.",
+        body: "Shown after completing all the Witness puzzles.",
       },
       {
-        title: "Notes",
-        body: "This fake rock contained the final clue that led to the treasure.",
+        title: "Out Of Bounds",
+        body: "TODO - TODO",
       },
     ],
     imageTooltips: {
       "park.png": [
+        {
+          x: 850,
+          y: 930,
+          width: 110,
+          height: 100,
+          text: "Rock",
+        },
         {
           x: 0,
           y: 0,
@@ -1590,6 +1634,80 @@ export const modalContent: Record<validNodes, ModalContent> = {
         },
       ],
     },
+  },
+  [validNodes.BrokenUSB]: {
+    title: "Broken USB",
+    description: "A broken USB drive with golden letters for \"Mom\".",
+    sections: [
+      {
+        title: "Location",
+        body: "Hidden inside a fake rock in the local park.",
+      },
+    ],
+    imageTooltips: {},
+  },
+  [validNodes.MazeUSB]: {
+    title: "Maze USB",
+    description: "A simple USB drive. Upon opening the USB drive, you are presented with a maze of directories. There is only one folder, nested deep within, that contains the next hint(s).",
+    sections: [
+      {
+        title: "Location",
+        body: "Hidden with all of mom's other SD cards and USBs.",
+      },
+    ],
+    imageTooltips: {},
+  },
+  [validNodes.Bokalas]: {
+    title: "Bokalas",
+    description: "One of the two images found in the USB drive maze when fully navigated. The picture is a zoomed in view of my sister's cat mug.",
+    sections: [
+      {
+        title: "Location",
+        body: "Found in the USB drive maze when fully navigated.",
+      },
+      {
+        title: "Notes",
+        body: "\"Bokalas\" means \"glass\" or \"mug\" in Lithuanian.",
+      },
+    ],
+    imageTooltips: {},
+  },
+  [validNodes.Thoovaalakal]: {
+    title: "Thoovaalakal",
+    description: "One of the two images found in the USB drive when fully navigated. The picture is a zoomed in view of towels in the laundry room.",
+    sections: [
+      {
+        title: "Location",
+        body: "Found in the USB drive maze when fully navigated.",
+      },
+      {
+        title: "Notes",
+        body: "\"Thoovaalakal\" means \"towels\" in Malayalam.",
+      },
+    ],
+    imageTooltips: {},
+  },
+  [validNodes.SDCard]: {
+    title: "SD Card",
+    description: "SD Card hidden on the bottom of a cat mug. The SD card contains a single video file that shows the location of the next clue.",
+    sections: [
+      {
+        title: "Location",
+        body: "Hidden on the bottom of a cat mug.",
+      },
+    ],
+    imageTooltips: {},
+  },
+  [validNodes.TowelChest]: {
+    title: "Chest",
+    description: "A small locked chest hidden under towels in the laundry room. The chest contains one of the pages of the manual.",
+    sections: [
+      {
+        title: "Location",
+        body: "Hidden in the laundry room, buried in the towels.",
+      },
+    ],
+    imageTooltips: {},
   },
   [validNodes.Sun]: {
     title: "The Sun",
