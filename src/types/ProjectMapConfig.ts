@@ -13,12 +13,12 @@ export interface TooltipData {
 
 export interface TextSection {
   title: string;
-  body: string;
+  body: string; // Can now contain HTML markup including hyperlinks
 }
 
 export interface ModalContent {
   title: string; // Title for the modal
-  description: string; // Main text content
+  description: string; // Main text content - can now contain HTML markup including hyperlinks
   sections?: TextSection[]; // Sections of text content
   imageTooltips?: Record<string, TooltipData[]>; // Map of image filename to tooltips
 }

@@ -10,6 +10,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // Import components
 import HelloWorld from "@/components/HelloWorld.vue";
 import NodeMapPage from "@/pages/NodeMapPage.vue";
+import StaticPageLoader from "@/components/StaticPageLoader.vue";
 
 const routes = [
   // Root page
@@ -33,6 +34,17 @@ const routes = [
       },
       // Add other sections later: about, gallery, etc.
     ]
+  },
+
+  // Redirect /christmas-2024-hunt/terminal to /terminal
+  { path: "/christmas-2024-hunt/terminal", redirect: "/terminal" },
+  
+  // Static pages using StaticPageLoader
+  { 
+    path: "/terminal", 
+    name: "terminal",
+    component: StaticPageLoader, 
+    props: { pageName: 'terminal' }
   },
   
   // Legacy redirect - redirect old /about to new structure

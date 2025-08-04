@@ -86,8 +86,7 @@
           <!-- Right pane: Text content -->
           <v-col cols="12" md="6" class="node-modal__text-pane">
             <div class="node-modal__text-container">
-              <p v-if="modalData.description" class="text-body-1 mb-4">
-                {{ modalData.description }}
+              <p v-if="modalData.description" class="text-body-1 mb-4" v-html="modalData.description">
               </p>
 
               <!-- Text sections -->
@@ -103,8 +102,7 @@
                   <h3 class="node-modal__section-title">
                     {{ section.title }}
                   </h3>
-                  <p class="node-modal__section-body">
-                    {{ section.body }}
+                  <p class="node-modal__section-body" v-html="section.body">
                   </p>
                 </div>
               </div>
@@ -550,6 +548,31 @@ export default {
     font-size: 1rem
     line-height: 1.5
     color: #555
+
+    // Style hyperlinks within the content
+    a
+      color: #1976d2
+      text-decoration: none
+      
+      &:hover
+        text-decoration: underline
+        color: #1565c0
+      
+      &:visited
+        color: #7b1fa2
+
+  // Also style links in the description
+  .text-body-1
+    a
+      color: #1976d2
+      text-decoration: none
+      
+      &:hover
+        text-decoration: underline
+        color: #1565c0
+      
+      &:visited
+        color: #7b1fa2
 
   .placeholder-text
     font-style: italic

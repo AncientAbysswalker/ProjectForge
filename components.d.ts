@@ -22,6 +22,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SettingsDrawer: typeof import('./src/components/node-map/SettingsDrawer.vue')['default']
     SiteTitle: typeof import('./src/components/SiteTitle.vue')['default']
+    StaticPageLoader: typeof import('./src/components/StaticPageLoader.vue')['default']
     SvgNode: typeof import('./src/components/node-map/nodes/SvgNode.vue')['default']
     TextNode: typeof import('./src/components/node-map/nodes/TextNode.vue')['default']
     UserSettings: typeof import('./src/components/node-map/UserSettings.vue')['default']

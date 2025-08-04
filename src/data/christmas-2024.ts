@@ -1569,7 +1569,7 @@ export const modalContent: Record<validNodes, ModalContent> = {
       },
       {
         title: "Credit",
-        body: "Source code based off https://github.com/jbzdarkid/jbzdarkid.github.io",
+        body: "Source code based off <a href=https://github.com/jbzdarkid/jbzdarkid.github.io>https://github.com/jbzdarkid/jbzdarkid.github.io</a>",
       },
     ],
     imageTooltips: {},
@@ -1731,18 +1731,13 @@ export const modalContent: Record<validNodes, ModalContent> = {
     ],
     imageTooltips: {},
   },
-  [validNodes.End]: {
-    title: "End Point",
-    description:
-      "The final destination of the hunt where the treasure was found.",
+  [validNodes.Terminal]: {
+    title: "Lost Terminal",
+    description: "A fake old LCD terminal screen. With this screen you can visually see the golden paths you are inputting. <br> <a href=/terminal>Try out the Terminal</a>",
     sections: [
       {
         title: "Location",
-        body: "The treasure was hidden in a box under the deck.",
-      },
-      {
-        title: "Notes",
-        body: "This was the final destination of the scavenger hunt where everyone found the treasure.",
+        body: "Shown when you input a hidden set of Golden Cross inputs from the manual's first Hidden Intimations page.",
       },
     ],
     imageTooltips: {},
